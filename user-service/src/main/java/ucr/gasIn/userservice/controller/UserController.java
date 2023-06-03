@@ -34,7 +34,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("/insert")
     public void add(@RequestBody User user) {service.save(user);
     }
 
@@ -42,7 +42,7 @@ public class UserController {
     public void update(@PathVariable("id") int id,
                        @RequestBody User user) {
         User entity = user;
-        //entity.setId_User(id);
+        entity.setId(id);
         service.update(entity);
     }
 
@@ -50,6 +50,4 @@ public class UserController {
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
-
-
 }
