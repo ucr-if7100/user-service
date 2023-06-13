@@ -24,17 +24,17 @@ public class UserService {
         repository.save(user);
     }
 
-    public User get(int id_User) {
-        return repository.findById(id_User).get();
+    public User get(int idUser) {
+        return repository.findById(idUser).get();
     }
 
-    public void update(User entity) {
-        /*User entityToUpdate = repository.findById(entity.getId_User()).get();
+    public void update(User user) {
+        User entityToUpdate = repository.findById(user.getId()).get();
         if(entityToUpdate != null) {
-            repository.save(entity);
-        }*/
+            repository.save(user);
+        }
     }
-    public void delete(int id_User) {repository.deleteById(id_User);
+    public void delete(int id) {repository.deleteById(id);
     }
 
 
