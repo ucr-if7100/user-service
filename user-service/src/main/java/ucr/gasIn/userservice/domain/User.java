@@ -1,33 +1,37 @@
 package ucr.gasIn.userservice.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
 public class User {
+    //Usar nuevos cambios
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
     private String name;
     private String lastname;
     private String email;
     private String username;
 
-    public User(int id, String name, String lastname, String email, String username) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.username = username;
+    public User(UUID id, String name, String lastname, String email, String username) {
+        this.setId(id);
+        this.setName(name);
+        this.setLastname(lastname);
+        this.setEmail(email);
+        this.setUsername(username);
     }
+    public User(){}
 
-    public User() {}
-
-
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
