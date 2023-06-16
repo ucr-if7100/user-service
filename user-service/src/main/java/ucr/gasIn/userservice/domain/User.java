@@ -11,11 +11,15 @@ public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "BINARY(16)",name ="id")
     private UUID id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "lastname")
     private String lastname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "username")
     private String username;
 
     public User(UUID id, String name, String lastname, String email, String username) {
