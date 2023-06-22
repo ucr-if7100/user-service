@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create_User_Table
+      id: create_Member_Table
       author: Maikel Sánchez
       changes:
         - createTable:
-            tableName: User
+            tableName: Member
             columns:
               - column:
                   name: id
@@ -12,14 +12,8 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: name
-                  type: varchar(255)
-              - column:
-                  name: lastname
-                  type: varchar(255)
+                  name: id_admin
+                  type: binary(16)
               - column:
                   name: email
-                  type: varchar(255)
-              - column:
-                  name: username
                   type: varchar(255)
