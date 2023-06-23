@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ucr.gasIn.userservice.domain.Member;
+import ucr.gasIn.userservice.dto.MemberDTO;
 import ucr.gasIn.userservice.dto.UserDTO;
 import ucr.gasIn.userservice.repository.MemberRepository;
 import ucr.gasIn.userservice.service.MemberService;
@@ -22,13 +23,13 @@ public class MemberController {
     private MemberService service;
 
     @GetMapping("/getMembers/{id}")
-    public List<Member> getMembers(@PathVariable("id") String id) {
+    public List<MemberDTO> getMembers(@PathVariable("id") String id) {
         UUID idAdmin = UUID.fromString(id);
         return service.getMembersbyIdAdmin(idAdmin);
     }
 
     @PostMapping("/insertMember")
-    public void addMember(@RequestBody Member member) {service.saveMember(member);
+    public void addMember(@RequestBody MemberDTO memberDTO) {service.save(memberDTO);
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucr.gasIn.userservice.domain.Member;
 import ucr.gasIn.userservice.domain.User;
+import ucr.gasIn.userservice.dto.MemberDTO;
 import ucr.gasIn.userservice.dto.UserDTO;
 import ucr.gasIn.userservice.repository.MemberRepository;
 import ucr.gasIn.userservice.repository.UserRepository;
@@ -26,26 +27,47 @@ public class MemberService {
     private UserRepository repositoryUser;
 
 
-    public List<Member> listAll() {
-        return repository.findAll();}
+    public List<MemberDTO> listAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());}
 
-    public void saveMember(Member member) {
+    public void save(MemberDTO memberDTO) {
         for (User user : repositoryUser.findAll()) {
-            if (Objects.equals(member.getEmail(), user.getEmail())) {
-                member.setId(user.getId());
+            if (Objects.equals(memberDTO.getEmail(), user.getEmail())) {
+                memberDTO.setIdMember(user.getId());
+                Member member = convertDtoToEntity(memberDTO);
                 repository.save(member);
             }
         }
     }
 
-    public List<Member> getMembersbyIdAdmin(UUID idAdmin){
-        List<Member> allMembers = listAll();
-        List<Member> filteredMembers = new ArrayList<>();
-        for (Member member : allMembers) {
-            if (member.getIdAdmin().equals(idAdmin)) {
-                filteredMembers.add(member);
+    public List<MemberDTO> getMembersbyIdAdmin(UUID idAdmin){
+        List<MemberDTO> allMembers = listAll();
+        List<MemberDTO> filteredMembers = new ArrayList<>();
+        for (MemberDTO memberDTO : allMembers) {
+            if (memberDTO.getIdAdmin().equals(idAdmin)) {
+                filteredMembers.add(memberDTO);
             }
         }
         return filteredMembers;
     }
+
+    private MemberDTO convertEntityToDto(Member member){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setEmail(member.getEmail());
+        memberDTO.setIdMember(member.getId());
+        memberDTO.setIdAdmin(member.getIdAdmin());
+        return memberDTO;
+    }
+
+    private Member convertDtoToEntity(MemberDTO memberDTO){
+        Member member = new Member();
+        member.setId(memberDTO.getIdMember());
+        member.setEmail(memberDTO.getEmail());
+        member.setIdAdmin(memberDTO.getIdAdmin());
+        return member;
+    }
+
 }
