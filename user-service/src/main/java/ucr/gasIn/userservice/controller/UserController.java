@@ -5,11 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ucr.gasIn.userservice.domain.Member;
 import ucr.gasIn.userservice.domain.User;
+import ucr.gasIn.userservice.dto.UserDTO;
+import ucr.gasIn.userservice.service.MemberService;
 import ucr.gasIn.userservice.service.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -19,37 +23,37 @@ public class UserController {
     @Autowired
     private UserService service;
 
+
+
     @GetMapping("/GetUser")
-    public List<User> list() {
+    public List<UserDTO> list() {
         return service.listAll();
     }
 
     @GetMapping("/GetUser/{id}")
-    public ResponseEntity<User> get(@PathVariable Integer id) {
+    public ResponseEntity<UserDTO> get(@PathVariable UUID id) {
         try {
-            User user = service.get(id);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            UserDTO user = service.get(id);
+            return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/")
-    public void add(@RequestBody User user) {service.save(user);
+    @PostMapping("/insert")
+    public void add(@RequestBody UserDTO userDTO) {service.save(userDTO);
     }
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable("id") int id,
-                       @RequestBody User user) {
-        User entity = user;
-        //entity.setId_User(id);
+    public void update(@PathVariable("id") UUID id,
+                       @RequestBody UserDTO user) {
+        UserDTO entity = user;
+        entity.setIdUser(id);
         service.update(entity);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable UUID id) {
         service.delete(id);
     }
-
-
 }
