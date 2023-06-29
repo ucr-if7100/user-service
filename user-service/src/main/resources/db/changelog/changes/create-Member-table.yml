@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Maikel Sánchez
       changes:
         - createTable:
-            tableName: Member
+            tableName: member
             columns:
               - column:
                   name: id
