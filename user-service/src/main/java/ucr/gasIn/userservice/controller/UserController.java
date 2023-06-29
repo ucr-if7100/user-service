@@ -5,19 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ucr.gasIn.userservice.domain.Member;
-import ucr.gasIn.userservice.domain.User;
 import ucr.gasIn.userservice.dto.UserDTO;
-import ucr.gasIn.userservice.service.MemberService;
 import ucr.gasIn.userservice.service.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(path = "/api/User")
+@RequestMapping(path = "/User")
 public class UserController {
 
     @Autowired

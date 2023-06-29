@@ -2,12 +2,8 @@ package ucr.gasIn.userservice.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ucr.gasIn.userservice.domain.Member;
 import ucr.gasIn.userservice.dto.MemberDTO;
-import ucr.gasIn.userservice.dto.UserDTO;
-import ucr.gasIn.userservice.repository.MemberRepository;
 import ucr.gasIn.userservice.service.MemberService;
 
 import java.util.List;
@@ -15,7 +11,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(path = "/api/Member")
+@RequestMapping(path = "/Member")
 
 public class MemberController {
 
