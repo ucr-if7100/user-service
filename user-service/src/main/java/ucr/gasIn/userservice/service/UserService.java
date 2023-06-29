@@ -52,8 +52,8 @@ public class UserService {
 
     private UserDTO convertEntityToDto(User user){
         UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(user.getEmail());
         userDTO.setIdUser(user.getId());
+        userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setLastname(user.getLastname());
         userDTO.setUsername(user.getUsername());
