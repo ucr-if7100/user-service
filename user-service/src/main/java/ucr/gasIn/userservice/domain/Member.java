@@ -1,9 +1,9 @@
 package ucr.gasIn.userservice.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
