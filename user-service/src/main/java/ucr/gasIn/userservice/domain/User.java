@@ -1,8 +1,13 @@
 package ucr.gasIn.userservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-
+import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -11,12 +16,17 @@ public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "BINARY(16)",name ="id")
     private UUID id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "lastname")
     private String lastname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "username")
     private String username;
+
 
     public User(UUID id, String name, String lastname, String email, String username) {
         this.setId(id);
@@ -67,3 +77,4 @@ public class User {
         this.username = username;
     }
 }
+

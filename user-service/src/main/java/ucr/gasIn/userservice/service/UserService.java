@@ -4,11 +4,15 @@ package ucr.gasIn.userservice.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucr.gasIn.userservice.domain.Member;
 import ucr.gasIn.userservice.domain.User;
 import ucr.gasIn.userservice.dto.UserDTO;
+import ucr.gasIn.userservice.repository.MemberRepository;
 import ucr.gasIn.userservice.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -35,6 +39,7 @@ public class UserService {
         return repository.findById(idUser).map(this::convertEntityToDto).orElse(null);
     }
 
+
     public void update(UserDTO userDTO) {
         User user = convertDtoToEntity(userDTO);
         User entityToUpdate = repository.findById(user.getId()).get();
@@ -47,8 +52,8 @@ public class UserService {
 
     private UserDTO convertEntityToDto(User user){
         UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(user.getEmail());
         userDTO.setIdUser(user.getId());
+        userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setLastname(user.getLastname());
         userDTO.setUsername(user.getUsername());
