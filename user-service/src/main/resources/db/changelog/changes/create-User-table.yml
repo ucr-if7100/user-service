@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_User_Table
+      author: Maikel Sánchez
+      changes:
+        - createTable:
+            tableName: User
+            columns:
+              - column:
+                  name: id
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: lastname
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: username
+                  type: varchar(255)

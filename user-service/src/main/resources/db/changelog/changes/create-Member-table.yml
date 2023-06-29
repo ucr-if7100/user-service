@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_Member_Table
+      author: Maikel Sánchez
+      changes:
+        - createTable:
+            tableName: Member
+            columns:
+              - column:
+                  name: id
+                  type: binary(16)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: id_admin
+                  type: binary(16)
+              - column:
+                  name: email
+                  type: varchar(255)

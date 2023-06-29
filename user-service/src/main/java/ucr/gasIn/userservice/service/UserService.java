@@ -4,10 +4,17 @@ package ucr.gasIn.userservice.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucr.gasIn.userservice.domain.Member;
 import ucr.gasIn.userservice.domain.User;
+import ucr.gasIn.userservice.dto.UserDTO;
+import ucr.gasIn.userservice.repository.MemberRepository;
 import ucr.gasIn.userservice.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,25 +23,51 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<User> listAll() {
-        return repository.findAll();
+    public List<UserDTO> listAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
-    public void save(User user) {
+    public void save(UserDTO userDTO) {
+        User user = convertDtoToEntity(userDTO);
         repository.save(user);
     }
 
-    public User get(int id_User) {
-        return repository.findById(id_User).get();
+    public UserDTO get(UUID idUser) {
+        return repository.findById(idUser).map(this::convertEntityToDto).orElse(null);
     }
 
-    public void update(User entity) {
-        /*User entityToUpdate = repository.findById(entity.getId_User()).get();
+
+    public void update(UserDTO userDTO) {
+        User user = convertDtoToEntity(userDTO);
+        User entityToUpdate = repository.findById(user.getId()).get();
         if(entityToUpdate != null) {
-            repository.save(entity);
-        }*/
+            repository.save(user);
+        }
     }
-    public void delete(int id_User) {repository.deleteById(id_User);
+    public void delete(UUID id) {repository.deleteById(id);
+    }
+
+    private UserDTO convertEntityToDto(User user){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setName(user.getName());
+        userDTO.setLastname(user.getLastname());
+        userDTO.setUsername(user.getUsername());
+        return userDTO;
+    }
+
+    private User convertDtoToEntity(UserDTO userDTO){
+        User user = new User();
+        user.setId(userDTO.getIdUser());
+        user.setName(userDTO.getName());
+        user.setLastname(userDTO.getLastname());
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
+        return user;
     }
 
 
