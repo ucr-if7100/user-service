@@ -1,13 +1,8 @@
 package ucr.gasIn.userservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
